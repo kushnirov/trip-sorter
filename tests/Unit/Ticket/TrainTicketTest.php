@@ -54,11 +54,6 @@ class TrainTicketTest extends TestCase
         $this->assertSame($this->trainTicket->getTrip(), $this->tripMock);
     }
 
-    public function testGetTransportInfo(): void
-    {
-        $this->assertSame($this->trainTicket->getTransportInfo(), $this->trainInfoMock);
-    }
-
     public function testGetDescription(): void
     {
         $result =$this->trainTicket->getDescription();

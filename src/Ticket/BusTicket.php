@@ -4,8 +4,19 @@ declare(strict_types=1);
 
 namespace App\Ticket;
 
-class BusTicket extends AbstractTicket
+use App\Dto\Trip;
+use App\Interfaces\DescriptionInterface;
+use App\Interfaces\TicketInterface;
+
+class BusTicket implements TicketInterface, DescriptionInterface
 {
+    /**
+     * @param Trip $trip
+     */
+    public function __construct(private Trip $trip)
+    {
+    }
+
     /**
      * @return string
      */
@@ -14,9 +25,17 @@ class BusTicket extends AbstractTicket
         return strtr(
             'Take the airport bus from [locationFrom] to [locationTo]. No seat assignment.',
             [
-                '[locationFrom]' => $this->getTrip()->getFrom(),
-                '[locationTo]' => $this->getTrip()->getTo(),
+                '[locationFrom]' => $this->trip->getFrom(),
+                '[locationTo]' => $this->trip->getTo(),
             ]
         );
+    }
+
+    /**
+     * @return Trip
+     */
+    public function getTrip(): Trip
+    {
+        return $this->trip;
     }
 }
